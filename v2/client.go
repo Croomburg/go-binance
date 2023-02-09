@@ -100,6 +100,12 @@ type RateLimitInterval string
 // AccountType define the account types
 type AccountType string
 
+// FutureAlgoType define future algo types
+type FutureAlgoType string
+
+// FutureAlgoUrgencyType define future algo urgency type
+type FutureAlgoUrgencyType string
+
 // Endpoints
 const (
 	baseAPIMainURL    = "https://api.binance.com"
@@ -233,6 +239,13 @@ const (
 	AccountTypeIsolatedMargin AccountType = "ISOLATED_MARGIN"
 	AccountTypeUSDTFuture     AccountType = "USDT_FUTURE"
 	AccountTypeCoinFuture     AccountType = "COIN_FUTURE"
+
+	FutureAlgoTypeVp   FutureAlgoType = "VP"
+	FutureAlgoTypeTwap FutureAlgoType = "TWAP"
+
+	FutureAlgoUrgencyTypeLow    FutureAlgoUrgencyType = "LOW"
+	FutureAlgoUrgencyTypeMedium FutureAlgoUrgencyType = "MEDIUM"
+	FutureAlgoUrgencyTypeHigh   FutureAlgoUrgencyType = "HIGH"
 )
 
 func currentTimestamp() int64 {
@@ -985,4 +998,9 @@ func (c *Client) NewSubAccountListService() *SubAccountListService {
 // NewGetUserAsset Get user assets, just for positive data
 func (c *Client) NewGetUserAsset() *GetUserAssetService {
 	return &GetUserAssetService{c: c}
+}
+
+// NewCreateFutureAlgoTwapOrderService create future algo twap order
+func (c *Client) NewCreateFutureAlgoTwapOrderService() *CreateFutureAlgoTwapOrderService {
+	return &CreateFutureAlgoTwapOrderService{c: c}
 }
