@@ -165,10 +165,9 @@ type FutureAlgoOrder struct {
 	BookTime     int64                    `json:"bookTime"`
 	EndTime      int64                    `json:"endTime"`
 	// 策略订单状态 WORKING
-	// TODO 文档里没有enum类型，需要自行测试
-	AlgoStatus string                `json:"algoStatus"`
-	AlgoType   FutureAlgoType        `json:algoType`
-	Urgency    FutureAlgoUrgencyType `json:"urgency"`
+	AlgoStatus FutureAlgoOrderStatusType `json:"algoStatus"`
+	AlgoType   FutureAlgoType            `json:algoType`
+	Urgency    FutureAlgoUrgencyType     `json:"urgency"`
 }
 
 // ListOpenFutureAlgoOrderResponse define response of list open future algo orders
@@ -269,19 +268,19 @@ type ListFutureAlgoOrderHistoryResponse struct {
 	Orders []*FutureAlgoOrder `json:"orders"`
 }
 
-// CancelFutureAlgoTwapOrderService cancel future algo twap order
-type CancelFutureAlgoTwapOrderService struct {
+// CancelFutureAlgoOrderService cancel future algo twap order
+type CancelFutureAlgoOrderService struct {
 	c      *Client
 	algoId *int64
 }
 
-func (s *CancelFutureAlgoTwapOrderService) AlgoId(algoId int64) *CancelFutureAlgoTwapOrderService {
+func (s *CancelFutureAlgoOrderService) AlgoId(algoId int64) *CancelFutureAlgoOrderService {
 	s.algoId = &algoId
 	return s
 }
 
 // Do send request
-func (s *CancelFutureAlgoTwapOrderService) Do(ctx context.Context, opts ...RequestOption) (res *CancelFutureAlgoTwapOrderResponse, err error) {
+func (s *CancelFutureAlgoOrderService) Do(ctx context.Context, opts ...RequestOption) (res *CancelFutureAlgoOrderResponse, err error) {
 	r := &request{
 		method:   http.MethodDelete,
 		endpoint: "/sapi/v1/algo/futures/order",
@@ -294,7 +293,7 @@ func (s *CancelFutureAlgoTwapOrderService) Do(ctx context.Context, opts ...Reque
 	}
 	fmt.Println("data is ", data)
 	fmt.Println("err is ", err)
-	res = new(CancelFutureAlgoTwapOrderResponse)
+	res = new(CancelFutureAlgoOrderResponse)
 	err = json.Unmarshal(data, res)
 	if err != nil {
 		return nil, err
@@ -302,10 +301,90 @@ func (s *CancelFutureAlgoTwapOrderService) Do(ctx context.Context, opts ...Reque
 	return res, nil
 }
 
-// CancelFutureAlgoTwapOrderResponse define response of cancel future algo twap order
-type CancelFutureAlgoTwapOrderResponse struct {
+// CancelFutureAlgoOrderResponse define response of cancel future algo twap order
+type CancelFutureAlgoOrderResponse struct {
 	AlgoId  int64  `json:"algoId"`
 	Success bool   `json:"success"`
 	Code    int    `json:"code"`
 	Msg     string `json:"msg"`
+}
+
+// GetFutureAlgoSubOrderService get future algo sub orders
+type GetFutureAlgoSubOrderService struct {
+	c        *Client
+	algoId   int64
+	page     *int
+	pageSize *int
+}
+
+// AlgoId set algoId
+func (s *GetFutureAlgoSubOrderService) AlgoId(algoId int64) *GetFutureAlgoSubOrderService {
+	s.algoId = algoId
+	return s
+}
+
+// Page set page
+func (s *GetFutureAlgoSubOrderService) Page(page int) *GetFutureAlgoSubOrderService {
+	s.page = &page
+	return s
+}
+
+// PageSize set pageSize
+func (s *GetFutureAlgoSubOrderService) PageSize(pageSize int) *GetFutureAlgoSubOrderService {
+	s.pageSize = &pageSize
+	return s
+}
+
+// Do send request
+func (s *GetFutureAlgoSubOrderService) Do(ctx context.Context, opts ...RequestOption) (res *GetFutureAlgoSubOrderResponse, err error) {
+	r := &request{
+		method:   http.MethodGet,
+		endpoint: "/sapi/v1/algo/futures/subOrders",
+		secType:  secTypeSigned,
+	}
+	r.setFormParam("algoId", s.algoId)
+	if s.page != nil {
+		r.setFormParam("page", s.page)
+	}
+	if s.pageSize != nil {
+		r.setFormParam("pageSize", s.pageSize)
+	}
+	data, err := s.c.callAPI(ctx, r, opts...)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println("data is ", data)
+	fmt.Println("err is ", err)
+	res = new(GetFutureAlgoSubOrderResponse)
+	err = json.Unmarshal(data, res)
+	if err != nil {
+		return nil, err
+	}
+	return res, nil
+}
+
+// FutureAlgoSubOrder definen sub order of future algo order
+type FutureAlgoSubOrder struct {
+	AlgoId  int64    `json:"algoId"`
+	OrderId int64    `json:"orderId"`
+	Symbol  string   `json:"symbol"`
+	Side    SideType `json:"side"`
+	// TODO 改成enum
+	OrderStatus string          `json:"orderStatus"`
+	ExecutedQty string          `json:"executedQty"`
+	ExecutedAmt string          `json:"executedAmt"`
+	FeeAmt      string          `json:"feeAmt"`
+	FeeAsset    string          `json:"feeAsset"`
+	AvgPrice    string          `json:"avgPrice"`
+	BookTime    int64           `json:"bookTime"`
+	SubId       int64           `json:"subId"`
+	TimeInForce TimeInForceType `json:"timeInForce"`
+	OrigQty     string          `json:"origQty"`
+}
+
+type GetFutureAlgoSubOrderResponse struct {
+	Total       int64                 `json:"total"`
+	ExecutedQty string                `json:"executedQty"`
+	ExecutedAmt string                `json:"executedAmt"`
+	SubOrders   []*FutureAlgoSubOrder `json:"subOrders"`
 }

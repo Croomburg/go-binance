@@ -106,6 +106,9 @@ type FutureAlgoType string
 // FutureAlgoUrgencyType define future algo urgency type
 type FutureAlgoUrgencyType string
 
+// FutureAlgoOrderStatusType define future algo order status
+type FutureAlgoOrderStatusType string
+
 // Endpoints
 const (
 	baseAPIMainURL    = "https://api.binance.com"
@@ -246,6 +249,10 @@ const (
 	FutureAlgoUrgencyTypeLow    FutureAlgoUrgencyType = "LOW"
 	FutureAlgoUrgencyTypeMedium FutureAlgoUrgencyType = "MEDIUM"
 	FutureAlgoUrgencyTypeHigh   FutureAlgoUrgencyType = "HIGH"
+
+	FutureAlgoOrderStatusTypeWorking   FutureAlgoOrderStatusType = "WORKING"
+	FutureAlgoOrderStatusTypeFinished  FutureAlgoOrderStatusType = "FINISHED"
+	FutureAlgoOrderStatusTypeCancelled FutureAlgoOrderStatusType = "CANCELLED"
 )
 
 func currentTimestamp() int64 {
@@ -1003,4 +1010,24 @@ func (c *Client) NewGetUserAsset() *GetUserAssetService {
 // NewCreateFutureAlgoTwapOrderService create future algo twap order
 func (c *Client) NewCreateFutureAlgoTwapOrderService() *CreateFutureAlgoTwapOrderService {
 	return &CreateFutureAlgoTwapOrderService{c: c}
+}
+
+// NewListOpenFutureAlgoOrderService list open future algo orders
+func (c *Client) NewListOpenFutureAlgoOrderService() *ListOpenFutureAlgoOrderService {
+	return &ListOpenFutureAlgoOrderService{c: c}
+}
+
+// NewListFutureAlgoOrderHistoryService list future algo historical orders
+func (c *Client) NewListFutureAlgoOrderHistoryService() *ListFutureAlgoOrderHistoryService {
+	return &ListFutureAlgoOrderHistoryService{c: c}
+}
+
+// NewCancelFutureAlgoOrderService cancel future algo order
+func (c *Client) NewCancelFutureAlgoOrderService() *CancelFutureAlgoOrderService {
+	return &CancelFutureAlgoOrderService{c: c}
+}
+
+// NewGetFutureAlgoSubOrderService get future algo sub orders
+func (c *Client) NewGetFutureAlgoSubOrderService() *GetFutureAlgoSubOrderService {
+	return &GetFutureAlgoSubOrderService{c: c}
 }
