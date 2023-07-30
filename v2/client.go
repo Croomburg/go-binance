@@ -160,10 +160,12 @@ const (
 	SymbolStatusTypeAuctionMatch SymbolStatusType = "AUCTION_MATCH"
 	SymbolStatusTypeBreak        SymbolStatusType = "BREAK"
 
-	SymbolFilterTypeLotSize          SymbolFilterType = "LOT_SIZE"
-	SymbolFilterTypePriceFilter      SymbolFilterType = "PRICE_FILTER"
-	SymbolFilterTypePercentPrice     SymbolFilterType = "PERCENT_PRICE"
+	SymbolFilterTypeLotSize      SymbolFilterType = "LOT_SIZE"
+	SymbolFilterTypePriceFilter  SymbolFilterType = "PRICE_FILTER"
+	SymbolFilterTypePercentPrice SymbolFilterType = "PERCENT_PRICE"
+	// Deprecated: use SymbolFilterTypePercentPrice instead
 	SymbolFilterTypeMinNotional      SymbolFilterType = "MIN_NOTIONAL"
+	SymbolFilterTypeNotional         SymbolFilterType = "NOTIONAL"
 	SymbolFilterTypeIcebergParts     SymbolFilterType = "ICEBERG_PARTS"
 	SymbolFilterTypeMarketLotSize    SymbolFilterType = "MARKET_LOT_SIZE"
 	SymbolFilterTypeMaxNumAlgoOrders SymbolFilterType = "MAX_NUM_ALGO_ORDERS"
@@ -1007,6 +1009,7 @@ func (c *Client) NewGetUserAsset() *GetUserAssetService {
 	return &GetUserAssetService{c: c}
 }
 
+<<<<<<< HEAD
 // NewCreateFutureAlgoTwapOrderService create future algo twap order
 func (c *Client) NewCreateFutureAlgoTwapOrderService() *CreateFutureAlgoTwapOrderService {
 	return &CreateFutureAlgoTwapOrderService{c: c}
@@ -1030,4 +1033,24 @@ func (c *Client) NewCancelFutureAlgoOrderService() *CancelFutureAlgoOrderService
 // NewGetFutureAlgoSubOrderService get future algo sub orders
 func (c *Client) NewGetFutureAlgoSubOrderService() *GetFutureAlgoSubOrderService {
 	return &GetFutureAlgoSubOrderService{c: c}
+=======
+// NewManagedSubAccountDepositService Deposit Assets Into The Managed Sub-account（For Investor Master Account）
+func (c *Client) NewManagedSubAccountDepositService() *ManagedSubAccountDepositService {
+	return &ManagedSubAccountDepositService{c: c}
+}
+
+// NewManagedSubAccountWithdrawalService Withdrawal Assets From The Managed Sub-account（For Investor Master Account）
+func (c *Client) NewManagedSubAccountWithdrawalService() *ManagedSubAccountWithdrawalService {
+	return &ManagedSubAccountWithdrawalService{c: c}
+}
+
+// NewManagedSubAccountAssetsService Withdrawal Assets From The Managed Sub-account（For Investor Master Account）
+func (c *Client) NewManagedSubAccountAssetsService() *ManagedSubAccountAssetsService {
+	return &ManagedSubAccountAssetsService{c: c}
+}
+
+// NewSubAccountFuturesAccountService Get Detail on Sub-account's Futures Account (For Master Account)
+func (c *Client) NewSubAccountFuturesAccountService() *SubAccountFuturesAccountService {
+	return &SubAccountFuturesAccountService{c: c}
+>>>>>>> e728846b51573447ffa75698e236e712ce81725b
 }
