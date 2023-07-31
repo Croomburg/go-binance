@@ -1009,7 +1009,6 @@ func (c *Client) NewGetUserAsset() *GetUserAssetService {
 	return &GetUserAssetService{c: c}
 }
 
-<<<<<<< HEAD
 // NewCreateFutureAlgoTwapOrderService create future algo twap order
 func (c *Client) NewCreateFutureAlgoTwapOrderService() *CreateFutureAlgoTwapOrderService {
 	return &CreateFutureAlgoTwapOrderService{c: c}
@@ -1033,7 +1032,8 @@ func (c *Client) NewCancelFutureAlgoOrderService() *CancelFutureAlgoOrderService
 // NewGetFutureAlgoSubOrderService get future algo sub orders
 func (c *Client) NewGetFutureAlgoSubOrderService() *GetFutureAlgoSubOrderService {
 	return &GetFutureAlgoSubOrderService{c: c}
-=======
+}
+
 // NewManagedSubAccountDepositService Deposit Assets Into The Managed Sub-account（For Investor Master Account）
 func (c *Client) NewManagedSubAccountDepositService() *ManagedSubAccountDepositService {
 	return &ManagedSubAccountDepositService{c: c}
@@ -1052,5 +1052,4 @@ func (c *Client) NewManagedSubAccountAssetsService() *ManagedSubAccountAssetsSer
 // NewSubAccountFuturesAccountService Get Detail on Sub-account's Futures Account (For Master Account)
 func (c *Client) NewSubAccountFuturesAccountService() *SubAccountFuturesAccountService {
 	return &SubAccountFuturesAccountService{c: c}
->>>>>>> e728846b51573447ffa75698e236e712ce81725b
 }
