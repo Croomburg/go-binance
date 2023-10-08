@@ -137,7 +137,7 @@ const (
 	SymbolFilterTypeMarketLotSize    SymbolFilterType = "MARKET_LOT_SIZE"
 	SymbolFilterTypeMaxNumOrders     SymbolFilterType = "MAX_NUM_ORDERS"
 	SymbolFilterTypeMaxNumAlgoOrders SymbolFilterType = "MAX_NUM_ALGO_ORDERS"
-	SymbolFilterTypeMinNotional      SymbolFilterType = "MIN_NOTIONAL"
+	SymbolFilterTypeMinNotional      SymbolFilterType = "NOTIONAL"
 
 	SideEffectTypeNoSideEffect SideEffectType = "NO_SIDE_EFFECT"
 	SideEffectTypeMarginBuy    SideEffectType = "MARGIN_BUY"
@@ -400,6 +400,11 @@ func (c *Client) NewKlinesService() *KlinesService {
 	return &KlinesService{c: c}
 }
 
+// NewContinuousKlinesService init continuous klines service
+func (c *Client) NewContinuousKlinesService() *ContinuousKlinesService {
+	return &ContinuousKlinesService{c: c}
+}
+
 // NewIndexPriceKlinesService init index price klines service
 func (c *Client) NewIndexPriceKlinesService() *IndexPriceKlinesService {
 	return &IndexPriceKlinesService{c: c}
@@ -573,6 +578,16 @@ func (c *Client) NewChangePositionModeService() *ChangePositionModeService {
 // NewGetPositionModeService init get position mode service
 func (c *Client) NewGetPositionModeService() *GetPositionModeService {
 	return &GetPositionModeService{c: c}
+}
+
+// NewChangeMultiAssetModeService init change multi-asset mode service
+func (c *Client) NewChangeMultiAssetModeService() *ChangeMultiAssetModeService {
+	return &ChangeMultiAssetModeService{c: c}
+}
+
+// NewGetMultiAssetModeService init get multi-asset mode service
+func (c *Client) NewGetMultiAssetModeService() *GetMultiAssetModeService {
+	return &GetMultiAssetModeService{c: c}
 }
 
 // NewGetRebateNewUserService init get rebate_newuser service
