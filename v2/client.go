@@ -150,6 +150,7 @@ const (
 	OrderStatusTypePendingCancel   OrderStatusType = "PENDING_CANCEL"
 	OrderStatusTypeRejected        OrderStatusType = "REJECTED"
 	OrderStatusTypeExpired         OrderStatusType = "EXPIRED"
+	OrderStatusExpiredInMatch      OrderStatusType = "EXPIRED_IN_MATCH" // STP Expired
 
 	SymbolTypeSpot SymbolType = "SPOT"
 
@@ -161,15 +162,16 @@ const (
 	SymbolStatusTypeAuctionMatch SymbolStatusType = "AUCTION_MATCH"
 	SymbolStatusTypeBreak        SymbolStatusType = "BREAK"
 
-	SymbolFilterTypeLotSize      SymbolFilterType = "LOT_SIZE"
-	SymbolFilterTypePriceFilter  SymbolFilterType = "PRICE_FILTER"
-	SymbolFilterTypePercentPrice SymbolFilterType = "PERCENT_PRICE"
-	// Deprecated: use SymbolFilterTypePercentPrice instead
-	SymbolFilterTypeMinNotional      SymbolFilterType = "MIN_NOTIONAL"
-	SymbolFilterTypeNotional         SymbolFilterType = "NOTIONAL"
-	SymbolFilterTypeIcebergParts     SymbolFilterType = "ICEBERG_PARTS"
-	SymbolFilterTypeMarketLotSize    SymbolFilterType = "MARKET_LOT_SIZE"
-	SymbolFilterTypeMaxNumAlgoOrders SymbolFilterType = "MAX_NUM_ALGO_ORDERS"
+	SymbolFilterTypeLotSize            SymbolFilterType = "LOT_SIZE"
+	SymbolFilterTypePriceFilter        SymbolFilterType = "PRICE_FILTER"
+	SymbolFilterTypePercentPriceBySide SymbolFilterType = "PERCENT_PRICE_BY_SIDE"
+	SymbolFilterTypeMinNotional        SymbolFilterType = "MIN_NOTIONAL"
+	SymbolFilterTypeNotional           SymbolFilterType = "NOTIONAL"
+	SymbolFilterTypeIcebergParts       SymbolFilterType = "ICEBERG_PARTS"
+	SymbolFilterTypeMarketLotSize      SymbolFilterType = "MARKET_LOT_SIZE"
+	SymbolFilterTypeMaxNumOrders       SymbolFilterType = "MAX_NUM_ORDERS"
+	SymbolFilterTypeMaxNumAlgoOrders   SymbolFilterType = "MAX_NUM_ALGO_ORDERS"
+	SymbolFilterTypeTrailingDelta      SymbolFilterType = "TRAILING_DELTA"
 
 	UserDataEventTypeOutboundAccountPosition UserDataEventType = "outboundAccountPosition"
 	UserDataEventTypeBalanceUpdate           UserDataEventType = "balanceUpdate"
@@ -1058,4 +1060,9 @@ func (c *Client) NewManagedSubAccountAssetsService() *ManagedSubAccountAssetsSer
 // NewSubAccountFuturesAccountService Get Detail on Sub-account's Futures Account (For Master Account)
 func (c *Client) NewSubAccountFuturesAccountService() *SubAccountFuturesAccountService {
 	return &SubAccountFuturesAccountService{c: c}
+}
+
+// NewSubAccountFuturesSummaryV1Service Get Summary of Sub-account's Futures Account (For Master Account)
+func (c *Client) NewSubAccountFuturesSummaryV1Service() *SubAccountFuturesSummaryV1Service {
+	return &SubAccountFuturesSummaryV1Service{c: c}
 }

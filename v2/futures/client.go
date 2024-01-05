@@ -137,7 +137,7 @@ const (
 	SymbolFilterTypeMarketLotSize    SymbolFilterType = "MARKET_LOT_SIZE"
 	SymbolFilterTypeMaxNumOrders     SymbolFilterType = "MAX_NUM_ORDERS"
 	SymbolFilterTypeMaxNumAlgoOrders SymbolFilterType = "MAX_NUM_ALGO_ORDERS"
-	SymbolFilterTypeMinNotional      SymbolFilterType = "NOTIONAL"
+	SymbolFilterTypeMinNotional      SymbolFilterType = "MIN_NOTIONAL"
 
 	SideEffectTypeNoSideEffect SideEffectType = "NO_SIDE_EFFECT"
 	SideEffectTypeMarginBuy    SideEffectType = "MARGIN_BUY"
@@ -533,6 +533,11 @@ func (c *Client) NewExchangeInfoService() *ExchangeInfoService {
 // NewPremiumIndexService init premium index service
 func (c *Client) NewPremiumIndexService() *PremiumIndexService {
 	return &PremiumIndexService{c: c}
+}
+
+// NewPremiumIndexKlinesService init premium index klines service
+func (c *Client) NewPremiumIndexKlinesService() *PremiumIndexKlinesService {
+	return &PremiumIndexKlinesService{c: c}
 }
 
 // NewFundingRateService init funding rate service
