@@ -111,9 +111,9 @@ type FutureAlgoUrgencyType string
 type FutureAlgoOrderStatusType string
 
 // Endpoints
-const (
-	baseAPIMainURL    = "https://api.binance.com"
-	baseAPITestnetURL = "https://testnet.binance.vision"
+var (
+	BaseAPIMainURL    = "https://api.binance.com"
+	BaseAPITestnetURL = "https://testnet.binance.vision"
 )
 
 // UseTestnet switch all the API endpoints from production to the testnet
@@ -280,9 +280,9 @@ func newJSON(data []byte) (j *simplejson.Json, err error) {
 // getAPIEndpoint return the base endpoint of the Rest API according the UseTestnet flag
 func getAPIEndpoint() string {
 	if UseTestnet {
-		return baseAPITestnetURL
+		return BaseAPITestnetURL
 	}
-	return baseAPIMainURL
+	return BaseAPIMainURL
 }
 
 // NewClient initialize an API client instance with API key and secret key.
@@ -1065,4 +1065,9 @@ func (c *Client) NewSubAccountFuturesAccountService() *SubAccountFuturesAccountS
 // NewSubAccountFuturesSummaryV1Service Get Summary of Sub-account's Futures Account (For Master Account)
 func (c *Client) NewSubAccountFuturesSummaryV1Service() *SubAccountFuturesSummaryV1Service {
 	return &SubAccountFuturesSummaryV1Service{c: c}
+}
+
+// NewSubAccountFuturesTransferV1Service Futures Transfer for Sub-account (For Master Account)
+func (c *Client) NewSubAccountFuturesTransferV1Service() *SubAccountFuturesTransferV1Service {
+	return &SubAccountFuturesTransferV1Service{c: c}
 }
