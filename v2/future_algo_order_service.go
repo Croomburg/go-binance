@@ -166,7 +166,7 @@ type FutureAlgoOrder struct {
 	EndTime      int64                    `json:"endTime"`
 	// 策略订单状态 WORKING
 	AlgoStatus FutureAlgoOrderStatusType `json:"algoStatus"`
-	AlgoType   FutureAlgoType            `json:algoType`
+	AlgoType   FutureAlgoType            `json:"algoType"`
 	Urgency    FutureAlgoUrgencyType     `json:"urgency"`
 }
 
