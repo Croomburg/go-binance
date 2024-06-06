@@ -14,13 +14,12 @@ import (
 	"os"
 	"time"
 
+	"github.com/Croomburg/go-binance/v2/common"
+	"github.com/Croomburg/go-binance/v2/delivery"
+	"github.com/Croomburg/go-binance/v2/futures"
+	"github.com/Croomburg/go-binance/v2/options"
 	"github.com/bitly/go-simplejson"
 	jsoniter "github.com/json-iterator/go"
-
-	"github.com/adshao/go-binance/v2/common"
-	"github.com/adshao/go-binance/v2/delivery"
-	"github.com/adshao/go-binance/v2/futures"
-	"github.com/adshao/go-binance/v2/options"
 )
 
 // SideType define side type of order
@@ -101,6 +100,24 @@ type RateLimitInterval string
 
 // AccountType define the account types
 type AccountType string
+
+// FutureAlgoType define future algo types
+type FutureAlgoType string
+
+// FutureAlgoUrgencyType define future algo urgency type
+type FutureAlgoUrgencyType string
+
+// FutureAlgoOrderStatusType define future algo order status
+type FutureAlgoOrderStatusType string
+
+// SubAccountTransferType define the sub account transfer types
+type SubAccountTransferType int
+
+// UserUniversalTransferType define the user universal transfer types
+type UserUniversalTransferType string
+
+// UserUniversalTransferStatus define the user universal transfer status
+type UserUniversalTransferStatusType string
 
 // Endpoints
 var (
@@ -239,6 +256,58 @@ const (
 	AccountTypeIsolatedMargin AccountType = "ISOLATED_MARGIN"
 	AccountTypeUSDTFuture     AccountType = "USDT_FUTURE"
 	AccountTypeCoinFuture     AccountType = "COIN_FUTURE"
+
+	FutureAlgoTypeVp   FutureAlgoType = "VP"
+	FutureAlgoTypeTwap FutureAlgoType = "TWAP"
+
+	FutureAlgoUrgencyTypeLow    FutureAlgoUrgencyType = "LOW"
+	FutureAlgoUrgencyTypeMedium FutureAlgoUrgencyType = "MEDIUM"
+	FutureAlgoUrgencyTypeHigh   FutureAlgoUrgencyType = "HIGH"
+
+	FutureAlgoOrderStatusTypeWorking   FutureAlgoOrderStatusType = "WORKING"
+	FutureAlgoOrderStatusTypeFinished  FutureAlgoOrderStatusType = "FINISHED"
+	FutureAlgoOrderStatusTypeCancelled FutureAlgoOrderStatusType = "CANCELLED"
+
+	SubAccountTransferTypeTransferIn  SubAccountTransferType = 1
+	SubAccountTransferTypeTransferOut SubAccountTransferType = 2
+
+	UserUniversalTransferTypeMainToUmFutures                UserUniversalTransferType = "MAIN_UMFUTURE"
+	UserUniversalTransferTypeMainToCmFutures                UserUniversalTransferType = "MAIN_CMFUTURE"
+	UserUniversalTransferTypeMainToMargin                   UserUniversalTransferType = "MAIN_MARGIN"
+	UserUniversalTransferTypeUmFuturesToMain                UserUniversalTransferType = "UMFUTURE_MAIN"
+	UserUniversalTransferTypeUmFuturesToMargin              UserUniversalTransferType = "UMFUTURE_MARGIN"
+	UserUniversalTransferTypeCmFuturesToMain                UserUniversalTransferType = "CMFUTURE_MAIN"
+	UserUniversalTransferTypeMarginToMain                   UserUniversalTransferType = "MARGIN_MAIN"
+	UserUniversalTransferTypeMarginToUmFutures              UserUniversalTransferType = "MARGIN_UMFUTURE"
+	UserUniversalTransferTypeMarginToCmFutures              UserUniversalTransferType = "MARGIN_CMFUTURE"
+	UserUniversalTransferTypeCmFuturesToMargin              UserUniversalTransferType = "CMFUTURE_MARGIN"
+	UserUniversalTransferTypeIsolatedMarginToMargin         UserUniversalTransferType = "ISOLATEDMARGIN_MARGIN"
+	UserUniversalTransferTypeMarginToIsolatedMargin         UserUniversalTransferType = "MARGIN_ISOLATEDMARGIN"
+	UserUniversalTransferTypeIsolatedMarginToIsolatedMargin UserUniversalTransferType = "ISOLATEDMARGIN_ISOLATEDMARGIN"
+	UserUniversalTransferTypeMainToFunding                  UserUniversalTransferType = "MAIN_FUNDING"
+	UserUniversalTransferTypeFundingToMain                  UserUniversalTransferType = "FUNDING_MAIN"
+	UserUniversalTransferTypeFundingToUmFutures             UserUniversalTransferType = "FUNDING_UMFUTURE"
+	UserUniversalTransferTypeUmFuturesToFunding             UserUniversalTransferType = "UMFUTURE_FUNDING"
+	UserUniversalTransferTypeMarginToFunding                UserUniversalTransferType = "MARGIN_FUNDING"
+	UserUniversalTransferTypeFundingToMargin                UserUniversalTransferType = "FUNDING_MARGIN"
+	UserUniversalTransferTypeFundingToCmFutures             UserUniversalTransferType = "FUNDING_CMFUTURE"
+	UserUniversalTransferTypeCmFuturesToFunding             UserUniversalTransferType = "CMFUTURE_FUNDING"
+	UserUniversalTransferTypeMainToOption                   UserUniversalTransferType = "MAIN_OPTION"
+	UserUniversalTransferTypeOptionToMain                   UserUniversalTransferType = "OPTION_MAIN"
+	UserUniversalTransferTypeUmFuturesToOption              UserUniversalTransferType = "UMFUTURE_OPTION"
+	UserUniversalTransferTypeOptionToUmFutures              UserUniversalTransferType = "OPTION_UMFUTURE"
+	UserUniversalTransferTypeMarginToOption                 UserUniversalTransferType = "MARGIN_OPTION"
+	UserUniversalTransferTypeOptionToMargin                 UserUniversalTransferType = "OPTION_MARGIN"
+	UserUniversalTransferTypeFundingToOption                UserUniversalTransferType = "FUNDING_OPTION"
+	UserUniversalTransferTypeOptionToFunding                UserUniversalTransferType = "OPTION_FUNDING"
+	UserUniversalTransferTypeMainToPortfolioMargin          UserUniversalTransferType = "MAIN_PORTFOLIO_MARGIN"
+	UserUniversalTransferTypePortfolioMarginToMain          UserUniversalTransferType = "PORTFOLIO_MARGIN_MAIN"
+	UserUniversalTransferTypeMainToIsolatedMargin           UserUniversalTransferType = "MAIN_ISOLATED_MARGIN"
+	UserUniversalTransferTypeIsolatedMarginToMain           UserUniversalTransferType = "ISOLATED_MARGIN_MAIN"
+
+	UserUniversalTransferStatusTypePending   UserUniversalTransferStatusType = "PENDING"
+	UserUniversalTransferStatusTypeConfirmed UserUniversalTransferStatusType = "CONFIRMED"
+	UserUniversalTransferStatusTypeFailed    UserUniversalTransferStatusType = "FAILED"
 )
 
 func currentTimestamp() int64 {
@@ -998,6 +1067,31 @@ func (c *Client) NewGetUserAsset() *GetUserAssetService {
 	return &GetUserAssetService{c: c}
 }
 
+// NewCreateFutureAlgoTwapOrderService create future algo twap order
+func (c *Client) NewCreateFutureAlgoTwapOrderService() *CreateFutureAlgoTwapOrderService {
+	return &CreateFutureAlgoTwapOrderService{c: c}
+}
+
+// NewListOpenFutureAlgoOrderService list open future algo orders
+func (c *Client) NewListOpenFutureAlgoOrderService() *ListOpenFutureAlgoOrderService {
+	return &ListOpenFutureAlgoOrderService{c: c}
+}
+
+// NewListFutureAlgoOrderHistoryService list future algo historical orders
+func (c *Client) NewListFutureAlgoOrderHistoryService() *ListFutureAlgoOrderHistoryService {
+	return &ListFutureAlgoOrderHistoryService{c: c}
+}
+
+// NewCancelFutureAlgoOrderService cancel future algo order
+func (c *Client) NewCancelFutureAlgoOrderService() *CancelFutureAlgoOrderService {
+	return &CancelFutureAlgoOrderService{c: c}
+}
+
+// NewGetFutureAlgoSubOrderService get future algo sub orders
+func (c *Client) NewGetFutureAlgoSubOrderService() *GetFutureAlgoSubOrderService {
+	return &GetFutureAlgoSubOrderService{c: c}
+}
+
 // NewManagedSubAccountDepositService Deposit Assets Into The Managed Sub-account（For Investor Master Account）
 func (c *Client) NewManagedSubAccountDepositService() *ManagedSubAccountDepositService {
 	return &ManagedSubAccountDepositService{c: c}
@@ -1026,4 +1120,14 @@ func (c *Client) NewSubAccountFuturesSummaryV1Service() *SubAccountFuturesSummar
 // NewSubAccountFuturesTransferV1Service Futures Transfer for Sub-account (For Master Account)
 func (c *Client) NewSubAccountFuturesTransferV1Service() *SubAccountFuturesTransferV1Service {
 	return &SubAccountFuturesTransferV1Service{c: c}
+}
+
+// NewSubAccountTransferHistoryService Transfer History for Sub-account (For Sub-account)
+func (c *Client) NewSubAccountTransferHistoryService() *SubAccountTransferHistoryService {
+	return &SubAccountTransferHistoryService{c: c}
+}
+
+// NewListUserUniversalTransferService Query User Universal Transfer History
+func (c *Client) NewListUserUniversalTransferService() *ListUserUniversalTransferService {
+	return &ListUserUniversalTransferService{c: c}
 }
