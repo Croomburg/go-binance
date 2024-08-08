@@ -12,13 +12,12 @@ import (
 	"os"
 	"time"
 
+	"github.com/Croomburg/go-binance/v2/common"
+	"github.com/Croomburg/go-binance/v2/delivery"
+	"github.com/Croomburg/go-binance/v2/futures"
+	"github.com/Croomburg/go-binance/v2/options"
 	"github.com/bitly/go-simplejson"
 	jsoniter "github.com/json-iterator/go"
-
-	"github.com/adshao/go-binance/v2/common"
-	"github.com/adshao/go-binance/v2/delivery"
-	"github.com/adshao/go-binance/v2/futures"
-	"github.com/adshao/go-binance/v2/options"
 )
 
 // SideType define side type of order
@@ -100,6 +99,15 @@ type RateLimitInterval string
 // AccountType define the account types
 type AccountType string
 
+// FutureAlgoType define future algo types
+type FutureAlgoType string
+
+// FutureAlgoUrgencyType define future algo urgency type
+type FutureAlgoUrgencyType string
+
+// FutureAlgoOrderStatusType define future algo order status
+type FutureAlgoOrderStatusType string
+
 // SubAccountTransferType define the sub account transfer types
 type SubAccountTransferType int
 
@@ -108,6 +116,9 @@ type UserUniversalTransferType string
 
 // UserUniversalTransferStatus define the user universal transfer status
 type UserUniversalTransferStatusType string
+
+// FuturesOrderBookHistoryDataType define the futures order book history data types
+type FuturesOrderBookHistoryDataType string
 
 // Endpoints
 var (
@@ -180,8 +191,10 @@ const (
 	MarginTransferTypeToMargin MarginTransferType = 1
 	MarginTransferTypeToMain   MarginTransferType = 2
 
-	FuturesTransferTypeToFutures FuturesTransferType = 1
-	FuturesTransferTypeToMain    FuturesTransferType = 2
+	FuturesTransferTypeToFutures       FuturesTransferType = 1
+	FuturesTransferTypeToMain          FuturesTransferType = 2
+	FuturesTransferTypeToFuturesCM     FuturesTransferType = 3
+	FuturesTransferTypeFuturesCMToMain FuturesTransferType = 4
 
 	MarginLoanStatusTypePending   MarginLoanStatusType = "PENDING"
 	MarginLoanStatusTypeConfirmed MarginLoanStatusType = "CONFIRMED"
@@ -247,6 +260,17 @@ const (
 	AccountTypeUSDTFuture     AccountType = "USDT_FUTURE"
 	AccountTypeCoinFuture     AccountType = "COIN_FUTURE"
 
+	FutureAlgoTypeVp   FutureAlgoType = "VP"
+	FutureAlgoTypeTwap FutureAlgoType = "TWAP"
+
+	FutureAlgoUrgencyTypeLow    FutureAlgoUrgencyType = "LOW"
+	FutureAlgoUrgencyTypeMedium FutureAlgoUrgencyType = "MEDIUM"
+	FutureAlgoUrgencyTypeHigh   FutureAlgoUrgencyType = "HIGH"
+
+	FutureAlgoOrderStatusTypeWorking   FutureAlgoOrderStatusType = "WORKING"
+	FutureAlgoOrderStatusTypeFinished  FutureAlgoOrderStatusType = "FINISHED"
+	FutureAlgoOrderStatusTypeCancelled FutureAlgoOrderStatusType = "CANCELLED"
+
 	SubAccountTransferTypeTransferIn  SubAccountTransferType = 1
 	SubAccountTransferTypeTransferOut SubAccountTransferType = 2
 
@@ -287,6 +311,9 @@ const (
 	UserUniversalTransferStatusTypePending   UserUniversalTransferStatusType = "PENDING"
 	UserUniversalTransferStatusTypeConfirmed UserUniversalTransferStatusType = "CONFIRMED"
 	UserUniversalTransferStatusTypeFailed    UserUniversalTransferStatusType = "FAILED"
+
+	FuturesOrderBookHistoryDataTypeTDepth FuturesOrderBookHistoryDataType = "T_DEPTH"
+	FuturesOrderBookHistoryDataTypeSDepth FuturesOrderBookHistoryDataType = "S_DEPTH"
 )
 
 func currentTimestamp() int64 {
@@ -1091,6 +1118,31 @@ func (c *Client) NewGetUserAsset() *GetUserAssetService {
 	return &GetUserAssetService{c: c}
 }
 
+// NewCreateFutureAlgoTwapOrderService create future algo twap order
+func (c *Client) NewCreateFutureAlgoTwapOrderService() *CreateFutureAlgoTwapOrderService {
+	return &CreateFutureAlgoTwapOrderService{c: c}
+}
+
+// NewListOpenFutureAlgoOrderService list open future algo orders
+func (c *Client) NewListOpenFutureAlgoOrderService() *ListOpenFutureAlgoOrderService {
+	return &ListOpenFutureAlgoOrderService{c: c}
+}
+
+// NewListFutureAlgoOrderHistoryService list future algo historical orders
+func (c *Client) NewListFutureAlgoOrderHistoryService() *ListFutureAlgoOrderHistoryService {
+	return &ListFutureAlgoOrderHistoryService{c: c}
+}
+
+// NewCancelFutureAlgoOrderService cancel future algo order
+func (c *Client) NewCancelFutureAlgoOrderService() *CancelFutureAlgoOrderService {
+	return &CancelFutureAlgoOrderService{c: c}
+}
+
+// NewGetFutureAlgoSubOrderService get future algo sub orders
+func (c *Client) NewGetFutureAlgoSubOrderService() *GetFutureAlgoSubOrderService {
+	return &GetFutureAlgoSubOrderService{c: c}
+}
+
 // NewManagedSubAccountDepositService Deposit Assets Into The Managed Sub-account（For Investor Master Account）
 func (c *Client) NewManagedSubAccountDepositService() *ManagedSubAccountDepositService {
 	return &ManagedSubAccountDepositService{c: c}
@@ -1290,4 +1342,9 @@ func (c *Client) NewSubAccountTransactionStatisticsService() *SubAccountTransact
 // get the target sub-account futures account detail, v2 interface.
 func (c *Client) NewSubAccountFuturesAccountV2Service() *SubAccountFuturesAccountV2Service {
 	return &SubAccountFuturesAccountV2Service{c: c}
+}
+
+// Futures order book history service
+func (c *Client) NewFuturesOrderBookHistoryService() *FuturesOrderBookHistoryService {
+	return &FuturesOrderBookHistoryService{c: c}
 }
