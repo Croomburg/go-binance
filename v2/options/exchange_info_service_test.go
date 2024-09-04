@@ -153,14 +153,12 @@ func (s *exchangeInfoServiceTestSuite) TestExchangeInfo() {
 	}
 	s.assertExchangeInfoEqual(ei, res)
 	s.r().Len(ei.OptionSymbols[0].Filters, 2, "Filters")
-
 	ePriceFilter := &PriceFilter{
 		MinPrice: "0.02",
 		MaxPrice: "80000.01",
 		TickSize: "0.01",
 	}
 	s.assertPriceFilterEqual(ePriceFilter, res.OptionSymbols[0].PriceFilter())
-
 	eLotSizeFilter := &LotSizeFilter{
 		MinQuantity: "0.01",
 		MaxQuantity: "100",
