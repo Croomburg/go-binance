@@ -38,6 +38,10 @@ type OrderExecutionType string
 // OrderStatusType define order status type
 type OrderStatusType string
 
+// PriceMatchType define priceMatch type
+// Can't be passed together with price
+type PriceMatchType string
+
 // SymbolType define symbol type
 type SymbolType string
 
@@ -115,6 +119,16 @@ const (
 	OrderStatusTypeExpired         OrderStatusType = "EXPIRED"
 	OrderStatusTypeNewInsurance    OrderStatusType = "NEW_INSURANCE"
 	OrderStatusTypeNewADL          OrderStatusType = "NEW_ADL"
+
+	PriceMatchTypeOpponent   PriceMatchType = "OPPONENT"
+	PriceMatchTypeOpponent5  PriceMatchType = "OPPONENT_5"
+	PriceMatchTypeOpponent10 PriceMatchType = "OPPONENT_10"
+	PriceMatchTypeOpponent20 PriceMatchType = "OPPONENT_20"
+	PriceMatchTypeQueue      PriceMatchType = "QUEUE"
+	PriceMatchTypeQueue5     PriceMatchType = "QUEUE_5"
+	PriceMatchTypeQueue10    PriceMatchType = "QUEUE_10"
+	PriceMatchTypeQueue20    PriceMatchType = "QUEUE_20"
+	PriceMatchTypeNone       PriceMatchType = "NONE"
 
 	SymbolTypeFuture SymbolType = "FUTURE"
 
@@ -445,6 +459,11 @@ func (c *Client) NewCreateOrderService() *CreateOrderService {
 	return &CreateOrderService{c: c}
 }
 
+// NewModifyOrderService init creating order service
+func (c *Client) NewModifyOrderService() *ModifyOrderService {
+	return &ModifyOrderService{c: c}
+}
+
 // NewCreateBatchOrdersService init creating batch order service
 func (c *Client) NewCreateBatchOrdersService() *CreateBatchOrdersService {
 	return &CreateBatchOrdersService{c: c}
@@ -669,4 +688,12 @@ func (c *Client) NewConstituentsService() *ConstituentsService {
 
 func (c *Client) NewLvtKlinesService() *LvtKlinesService {
 	return &LvtKlinesService{c: c}
+}
+
+func (c *Client) NewGetFeeBurnService() *GetFeeBurnService {
+	return &GetFeeBurnService{c: c}
+}
+
+func (c *Client) NewFeeBurnService() *FeeBurnService {
+	return &FeeBurnService{c: c}
 }
