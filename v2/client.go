@@ -125,7 +125,7 @@ type FuturesAlgoOrderStatusType string
 // Endpoints
 var (
 	BaseAPIMainURL    = "https://api.binance.com"
-	BaseAPITestnetURL = "https://testnet.binance.vision"
+	BaseAPITestnetURL = "https://demo-api.binance.com"
 )
 
 // SelfTradePreventionMode define self trade prevention strategy

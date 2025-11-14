@@ -14,9 +14,9 @@ import (
 // Endpoints
 var (
 	BaseWsMainUrl          = "wss://fstream.binance.com/ws"
-	BaseWsTestnetUrl       = "wss://stream.binancefuture.com/ws"
+	BaseWsTestnetUrl       = "wss://fstream.binancefuture.com/ws"
 	BaseCombinedMainURL    = "wss://fstream.binance.com/stream?streams="
-	BaseCombinedTestnetURL = "wss://stream.binancefuture.com/stream?streams="
+	BaseCombinedTestnetURL = "wss://fstream.binancefuture.com/stream?streams="
 	BaseWsApiMainURL       = "wss://ws-fapi.binance.com/ws-fapi/v1"
 	BaseWsApiTestnetURL    = "wss://testnet.binancefuture.com/ws-fapi/v1"
 )

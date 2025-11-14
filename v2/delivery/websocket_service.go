@@ -11,8 +11,10 @@ import (
 
 // Endpoints
 var (
-	BaseWsMainUrl    = "wss://dstream.binance.com/ws"
-	BaseWsTestnetUrl = "wss://dstream.binancefuture.com/ws"
+	BaseWsMainUrl       = "wss://dstream.binance.com/ws"
+	BaseWsTestnetUrl    = "wss://dstream.binancefuture.com/ws"
+	BaseWsApiMainUrl    = "wss://ws-dapi.binance.com/ws-dapi/v1"
+	BaseWsApiTestnetUrl = "wss://testnet.binancefuture.com/ws-dapi/v1"
 )
 
 var (

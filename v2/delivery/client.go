@@ -65,7 +65,7 @@ type UserDataEventReasonType string
 // Endpoints
 var (
 	BaseApiMainUrl    = "https://dapi.binance.com"
-	BaseApiTestnetUrl = "https://testnet.binancefuture.com"
+	BaseApiTestnetUrl = "https://demo-dapi.binance.com"
 )
 
 // Global enums
