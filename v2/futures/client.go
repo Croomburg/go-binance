@@ -79,7 +79,7 @@ type SelfTradePreventionMode string
 var (
 	BaseApiMainUrl    = "https://fapi.binance.com"
 	BaseApiTestnetUrl = "https://testnet.binancefuture.com"
-	BaseApiDemoURL    = "https://testnet.binancefuture.com"
+	BaseApiDemoURL    = "https://demo-fapi.binance.com"
 )
 
 // Global enums
