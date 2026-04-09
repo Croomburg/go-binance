@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/adshao/go-binance/v2/common"
-	"github.com/adshao/go-binance/v2/common/websocket"
+	"github.com/Croomburg/go-binance/v2/common"
+	"github.com/Croomburg/go-binance/v2/common/websocket"
 )
 
 // OrderListPlaceOtocoWsService creates OTOCO order list

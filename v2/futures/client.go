@@ -13,9 +13,8 @@ import (
 	"os"
 	"time"
 
+	"github.com/Croomburg/go-binance/v2/common"
 	"github.com/bitly/go-simplejson"
-
-	"github.com/adshao/go-binance/v2/common"
 )
 
 // SideType define side type of order
@@ -80,7 +79,7 @@ type SelfTradePreventionMode string
 var (
 	BaseApiMainUrl    = "https://fapi.binance.com"
 	BaseApiTestnetUrl = "https://testnet.binancefuture.com"
-	BaseApiDemoURL    = "https://testnet.binancefuture.com"
+	BaseApiDemoURL    = "https://demo-fapi.binance.com"
 )
 
 // Global enums
