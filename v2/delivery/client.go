@@ -65,7 +65,8 @@ type UserDataEventReasonType string
 // Endpoints
 var (
 	BaseApiMainUrl    = "https://dapi.binance.com"
-	BaseApiTestnetUrl = "https://demo-dapi.binance.com"
+	BaseApiTestnetUrl = "https://testnet.binancefuture.com"
+	BaseApiDemoURL    = "https://demo-dapi.binance.com"
 )
 
 // Global enums
@@ -179,6 +180,9 @@ func getApiEndpoint() string {
 	if UseTestnet {
 		return BaseApiTestnetUrl
 	}
+	if UseDemo {
+		return BaseApiDemoURL
+	}
 	return BaseApiMainUrl
 }
 
@@ -233,9 +237,12 @@ type Client struct {
 	Logger     *log.Logger
 	TimeOffset int64
 	do         doFunc
+
+	UsedWeight common.UsedWeight
+	OrderCount common.OrderCount
 }
 
-func (c *Client) debug(format string, v ...interface{}) {
+func (c *Client) debug(format string, v ...any) {
 	if c.Debug {
 		c.Logger.Printf(format, v...)
 	}
@@ -325,6 +332,8 @@ func (c *Client) callAPI(ctx context.Context, r *request, opts ...RequestOption)
 	if err != nil {
 		return []byte{}, err
 	}
+	c.UsedWeight.UpdateByHeader(res.Header)
+	c.OrderCount.UpdateByHeader(res.Header)
 	data, err = io.ReadAll(res.Body)
 	if err != nil {
 		return []byte{}, err
